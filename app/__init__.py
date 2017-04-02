@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_user import SQLAlchemyAdapter, UserManager
 
 app = Flask(__name__)
 
@@ -34,9 +33,6 @@ from app.models import User
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'userbp.signin'
-
-db_adapter = SQLAlchemyAdapter(db, User)
-user_manager = UserManager(db_adapter, app)
 
 
 @login_manager.user_loader
