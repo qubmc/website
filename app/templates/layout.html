@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- General css -->
+    <link href="static/css/layout.css" rel="stylesheet">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- General javascript -->
+    <script src="static/js/layout.js"></script>
+    <!-- Facebook sdk -->
+    <script src="static/js/facebooksdk.js"></script>
+</head>
+<body>
+    <div id="banner" class="carousel fade" data-ride="carousel" data-interval="7000">
+        <!-- Wrapper for slides -->
+
+        <div class="carousel-inner">
+            <div class="item banner1 active"></div>
+            <div class="item banner2"></div>
+            <div class="item banner3"></div>
+        </div>
+        <div class="overlay-fade"></div>
+        <div class="overlay-header">
+            <img class="overlay-crest" src="static/img/crest.png"/>
+            <h2 class="overlay-h2">QUEEN'S UNIVERSITY BELFAST</h2>
+            <h1 class="overlay-h1">MOUNTAINEERING CLUB</h1>
+        </div>
+    </div>
+
+    <div class="main">
+        <div id="top" class="navbar navbar-dark navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#banner"><span class="glyphicon glyphicon-circle-arrow-up"></span></a></li>
+                        <li><a href="{{ url_for('index') }}#top">Home</a></li>
+                        <li><a href="#top">About</a></li>
+                        <li><a href="{{ url_for('blog') }}#top">Blog</a></li>
+                        {% if is_admin == true %}
+                            <li><a href="/admin">Admin</a></li>
+                        {% endif %}
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown profile-pic">
+                            <a data-toggle="dropdown" class="dropdown-toggle profile-pic">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </a>
+                            <ul class="dropdown-menu login-dropdown">
+                                <li>
+                                    <img src='' id="profilepic"/>
+                                    <div class="fb-login-button" data-scope="public_profile, email" data-onlogin="checkLoginState();" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container filler">
+            <div class="content-canvas">
+            {% block content %}
+            <div class="row">
+                {% if page_content is not none %}
+                    <h1>{{ page_content['title'] }}</h1>
+                    {% if page_content['image_url'] %}
+                        <img class="content-img" src="{{ page_content['image_url'] }}"/>
+                    {% endif %}
+                    <p>{{ page_content['content']|safe }}</p>
+                {% endif %}
+            </div>
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+
+</body>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</html>

@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="row">
+        {% if page_content is not none %}
+            <h1>{{ page_content['title'] }}</h1>
+            {% if page_content['image_url'] %}
+                <img class="content-img" src="{{ page_content['image_url'] }}"/>
+            {% endif %}
+            <p>{{ page_content['content']|safe }}</p>
+        {% endif %}
+    </div>
+{% endblock %}
