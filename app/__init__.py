@@ -14,9 +14,9 @@ from flask_mail import Mail
 mail = Mail(app)
 
 # Setup the debug toolbar
-from flask_debugtoolbar import DebugToolbarExtension
-app.config['DEBUG_TB_TEMPLATE_EDITOR_ENABLED'] = True
-app.config['DEBUG_TB_PROFILER_ENABLED'] = True
+#from flask_debugtoolbar import DebugToolbarExtension
+#app.config['DEBUG_TB_TEMPLATE_EDITOR_ENABLED'] = True
+#app.config['DEBUG_TB_PROFILER_ENABLED'] = True
 #toolbar = DebugToolbarExtension(app)
 
 # Setup the password crypting
