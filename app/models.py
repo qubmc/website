@@ -1,8 +1,7 @@
-from flask_user import UserMixin
 import app
 
 
-class User(app.db.Model, UserMixin):
+class User(app.db.Model):
 
     """ A user who has an account on the website. """
 
