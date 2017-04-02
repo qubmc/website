@@ -1,4 +1,3 @@
-from sqlalchemy.ext.hybrid import hybrid_property
 from flask_user import UserMixin
 import app
 

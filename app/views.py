@@ -1,7 +1,5 @@
 from flask import render_template, jsonify, render_template_string, request
-from flask import session
 from app import app, db
-from flask_user import login_required, roles_required
 
 @app.context_processor
 def show_admin_controls():
