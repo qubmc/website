@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Catamaran|Josefin+Sans');
+#editor {
+    overflow:scroll;
+    min-height:380px;
+}
 
 #banner {
-    height: 100vh;
-    background-color: white;
+    background: no-repeat 70% center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    min-height: 100vh;
 }
 
 .overlay-fade {
@@ -150,6 +158,46 @@
     width: 100%;
 }
 
-.content-canvas {
-    height: 100vh;
+.content-fadecomment {
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0.3)
+    );
+    height:100%;
+}
+
+.reading-width {
+    max-width: 600px;
+}
+
+.parallax-img {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.admin-button {
+    float: right;
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    color: initial;
+}
+
+.navbar {
+    margin: 0;
+}
+
+.navbar-dark .navbar-toggle .icon-bar {
+    background-color: black;
+}
+
+.glyphicon-circle-arrow-up {
+    margin-left: 10px;
+}
+
+.title {
+    text-align: center;
 }

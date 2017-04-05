@@ -1,13 +1,24 @@
-{% extends "layout.html" %}
+{% extends 'layout.html' %}
 
 {% block content %}
-    <div class="row">
+    {% if page_content is not none %}
+    <div class="parallax-img" style="background-image: url('{{ page_content['image_url'] }}');">
+    {% endif %}
+    <div class="spacing" style="margin: 0; min-height: 50vh;"></div>
+    <div class="container-fluid filler content-fade" style="background-color: white;">
+        {% if is_admin == true %}
+            <a class="admin-button" href="{{ url_for('content_editor', page='blog') }}#top">Edit content</a>
+        {% endif %}
+        <div class="row col-sm-10 col-sm-offset-1 col-lg-6 col-lg-offset-3" style="padding-top: 4vh; padding-bottom: 4vh;">
+
         {% if page_content is not none %}
-            <h1>{{ page_content['title'] }}</h1>
-            {% if page_content['image_url'] %}
-                <img class="content-img" src="{{ page_content['image_url'] }}"/>
-            {% endif %}
+            <h1 class="title">{{ page_content['title'] }}</h1><br/>
+            <!--{% if page_content['image_url'] %}-->
+                <!--<img class="content-img" src="{{ page_content['image_url'] }}"/>-->
+            <!--{% endif %}-->
             <p>{{ page_content['content']|safe }}</p>
         {% endif %}
     </div>
+        </div>
+        </div>
 {% endblock %}

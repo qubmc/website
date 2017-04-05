@@ -48,3 +48,21 @@ class Content(app.db.Model):
     content = app.db.Column(app.db.Text(), nullable=False)
     image_url = app.db.Column(app.db.Text())
     key = app.db.Column(app.db.String(60), nullable=False, unique=True)
+
+
+class Banners(app.db.Model):
+    id = app.db.Column(app.db.Integer(), primary_key=True)
+    image_url = app.db.Column(app.db.Text())
+
+
+class BlogPost(app.db.Model):
+    id = app.db.Column(app.db.Integer(), primary_key=True)
+    title = app.db.Column(app.db.String(140), nullable=False)
+    content = app.db.Column(app.db.Text(), nullable=False)
+    image_url = app.db.Column(app.db.Text())
+    key = app.db.Column(app.db.String(60), nullable=False, unique=True)
+
+
+class Quotes(app.db.Model):
+    id = app.db.Column(app.db.Integer(), primary_key=True)
+    quote = app.db.Column(app.db.String(140), nullable=False)
