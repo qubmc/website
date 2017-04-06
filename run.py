@@ -15,6 +15,6 @@ def dropdb():
 
 if __name__ == '__main__':
     # dropdb()
-    initdb()
-    app.debug = True
+    # initdb()
+    app.debug = False
     app.run()
