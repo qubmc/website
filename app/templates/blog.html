@@ -41,7 +41,9 @@
                 {% endif %}
                 <p><h1 class="blog-title"><b>{{ post['title'] }}</b></h1>
                 <p> by {{ post['user'] }} <i style="font-size: 1em"> on {{ post['datetime'] }}</i></p>
-
+                {% if post['image_url'] != '' and post['image_url'] is not none %}
+                <img class="img-rounded" src="{{ url_for('static', filename=post['image_url']) }}" style="width: 100%" />
+                {% endif %}
                 <br/><br/>
                 <a href="{{ url_for('blog_post', id=post['id']) }}#top">Read more >></a>
             </div>
