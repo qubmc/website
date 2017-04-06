@@ -1,0 +1,35 @@
+{% extends 'blog.html' %}
+
+{% block blogpost %}
+    {% if post is not none %}
+    <div class="parallax-img" style="background-image: url('{{ url_for('static', filename=post['image_url']) }}');">
+        <div class="well">
+            <div class="container-fluid filler content-fade" style="background-color: white;">
+                <div class="row col-sm-10 col-sm-offset-1 col-lg-6 col-lg-offset-3" style="padding-top: 4vh; padding-bottom: 4vh;">
+                    {% if post is not none %}
+                    {% if post['viewable'] %}
+                        {% if post['filter'] == 'GENERAL' %}
+                        <div class="alert alert-info blog-tag"><strong>General</strong></div>
+                        {% elif post['filter'] == 'TRIP REPORT' %}
+                        <div class="alert alert-success blog-tag"><strong>Trip Report</strong></div>
+                        {% elif post['filter'] == 'GUIDE' %}
+                        <div class="alert alert-warning blog-tag"><strong>Guide</strong></div>
+                        {% elif post['filter'] == 'EVENT' %}
+                        <div class="alert alert-danger blog-tag"><strong>Event</strong></div>
+                        {% endif %}
+                        <p><h1 class="blog-title"><b>{{ post['title'] }}</b></h1>
+                        <p> by {{ post['user'] }} <i style="font-size: 1em"> on {{ post['datetime'] }}</i></p>
+                        {% if post['image_url'] != '' and post['image_url'] is not none %}
+                        <img class="img-rounded" src="{{ url_for('static', filename=post['image_url']) }}" style="width: 100%" />
+                        {% endif %}
+                        <br/><br/>
+                        <blockquote><p>{{ post['text']|safe }}</p></blockquote>
+                        <br/>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

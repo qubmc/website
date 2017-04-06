@@ -11,6 +11,7 @@
     </script>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width"/>
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -19,31 +20,29 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- General javascript -->
-    <script src="static/js/layout.js"></script>
+    <script src="{{ url_for('static', filename='js/layout.js') }}"></script>
     <!-- Facebook sdk -->
-    <script src="static/js/facebooksdk.js"></script>
-    <script src="static/js/bootstrap-wysiwyg.js"></script>
+    <script src="{{ url_for('static', filename='js/facebooksdk.js') }}"></script>
 </head>
 <body>
     <div id="banner" class="carousel fade">
-        <!-- Wrapper for slides -->
-
-        <!--<div class="carousel-inner">-->
-            <!--<div class="item banner1 active"></div>-->
-            <!--<div class="item banner2"></div>-->
-            <!--<div class="item banner3"></div>-->
-        <!--</div>-->
-        <div class="overlay-fade"></div>
+        <div class="overlay-fade">
+            {% if is_admin == true %}
+                <a class="admin-button btn filler" href="{{ url_for('add_banner') }}#top">Add a banner</a>
+            {% endif %}
+        </div>
         <div class="overlay-header">
             <img class="overlay-crest" src="{{ url_for('static', filename='img/crest.png') }}"/>
             <h2 class="overlay-h2">QUEEN'S UNIVERSITY BELFAST</h2>
             <h1 class="overlay-h1">MOUNTAINEERING CLUB</h1>
+
         </div>
     </div>
 
     <script type="text/javascript">
         function set_banner(data) {
             var images = data;
+
             $('#banner').css({'background-image': 'url(' + images[Math.floor(Math.random() * images.length)] + ')'});
         }
         set_banner({{ banners_list|safe }})
@@ -59,18 +58,31 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand" href="#banner"><span class="glyphicon glyphicon-circle-arrow-up"></span></a>
+                      <a class="navbar-brand scroll-button" href="#banner"><span class="glyphicon glyphicon-circle-arrow-up"></span></a>
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li><a class="scroll-button" href="{{ url_for('index') }}#top">Home</a></li>
-                        <li><a class="scroll-button" href="#top">About</a></li>
-                        <li><a class="scroll-button" href="{{ url_for('blog') }}#top">Blog</a></li>
+                        <li><a class="scroll-button" href="{{ url_for('about') }}#top">About</a></li>
+                        <li><a class="scroll-button" href="{{ url_for('committee') }}#top">Committee</a></li>
+                        <li><a class="scroll-button" href="{{ url_for('blog', filter='ALL') }}#top">Blog</a></li>
+                        <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">Trips</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url_for('freshers_trip') }}#top">Freshers'</a></li>
+                                <li><a href="{{ url_for('donegal_trip') }}#top">Donegal</a></li>
+                                <li><a href="{{ url_for('wicklow_trip') }}#top">Wicklow</a></li>
+                                <li><a href="{{ url_for('scotland_trip') }}#top">Scotland</a></li>
+                                <li><a href="{{ url_for('spain_trip') }}#top">Spain</a></li>
+                                <!-- <li><a href="{{ url_for('trad_trip') }}#top">Trad</a></li> commented out reason: have no details -->
+                                <li><a href="{{ url_for('gola_trip') }}#top">Gola</a></li>
+                            </ul>
+                        </li>
+                        <li><a class="scroll-button" href="{{ url_for('join') }}#top">Join</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
                         {% if is_admin == true %}
                             <li><a href="/admin">Admin</a></li>
                         {% endif %}
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown profile-pic">
                             <a data-toggle="dropdown" class="dropdown-toggle profile-pic">
                                 <span class="glyphicon glyphicon-user"></span> User
@@ -87,33 +99,47 @@
                 </div>
             </div>
         </div>
+
+
             <div id="content" style="min-height: 100vh;">
             {% block content %}
-            {% if page_content is not none %}
-            <div class="parallax-img" style="background-image: url('{{ page_content['image_url'] }}');">
-            {% endif %}
-            <div class="spacing" style="min-height: 50vh;"></div>
-            <div class="container-fluid filler content-fade" style="background-color: white;">
-                {% if is_admin == true %}
-                    <a class="admin-button" href="{{ url_for('content_editor', page='layout') }}#top">Edit content</a>
-                {% endif %}
-                <div class="row col-sm-10 col-sm-offset-1 col-lg-6 col-lg-offset-3" style="padding-top: 4vh; padding-bottom: 4vh;">
-
                 {% if page_content is not none %}
-                    <h1 class="title">{{ page_content['title'] }}</h1><br/>
-                    <!--{% if page_content['image_url'] %}-->
-                        <!--<img class="content-img" src="{{ page_content['image_url'] }}"/>-->
-                    <!--{% endif %}-->
-                    <p>{{ page_content['content']|safe }}</p>
+                <div class="parallax-img" style="background-image: url('{{ url_for('static', filename=page_content['image_url']) }}');">
+                    {% if page_content['image_url'] != '' %}
+                    <div class="spacing" style="margin: 0; min-height: 50vh;"></div>
+                    {% endif %}
+
+                    <div class="container-fluid filler content-fade" style="background-color: white;">
+                        {% if is_admin == true %}
+                            <a class="admin-button" href="{{ url_for('content_editor', page=page_content['key']) }}#top">Edit content</a>
+                        {% endif %}
+                        <div class="row col-sm-10 col-sm-offset-1 col-lg-6 col-lg-offset-3" style="padding-top: 4vh; padding-bottom: 4vh;">
+
+                            {% if page_content is not none %}
+                            <h1 class="title">{{ page_content['title'] }}</h1><br/>
+                            <p>{{ page_content['content']|safe }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
                 {% endif %}
-            </div>
-            </div>
-            </div>
             {% endblock %}
             </div>
 
 
     </div>
+    <div class="navbar navbar-dark" style="min-height:10px; background-color: white;" role="navigation">
+           <div class="navbar-inner" style="text-align: center;">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav" style="display: inline-block; float: none; vertical-align: top;">
+                        <li><a style="padding-bottom: 5px; padding-top: 5px;" href="https://www.facebook.com/qubmountaineering">Facebook</a></li>
+                        <li><a style="padding-bottom: 5px; padding-top: 5px;" href="https://www.instagram.com/qub.mountaineering/">Instagram</a></li>
+                        <li><a style="padding-bottom: 5px; padding-top: 5px;" href="https://docs.google.com/document/d/1ZxK-WSZ6S2VZz905eWMbZLl7KdBgm7XNb23oeVERy_M/edit">Constitution</a></li>
+                        <li><a style="padding-bottom: 5px; padding-top: 5px;" class="scroll-button" href="{{ url_for('contact') }}#top">Contact</a></li>
+                    </ul>
+                </div>
+          </div>
+        </div>
 
 </body>
     <!-- Latest compiled JavaScript -->

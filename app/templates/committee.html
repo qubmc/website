@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container-fluid filler content-fade" style="background-color: white;">
+    {% if committee is not none %}
+        <br/>
+        <div style="justify-content: space-between; text-align: center;">
+            {% for role in committee %}
+            <a href="#{{ loop.index }}" type="button" class="btn scroll-button">{{ role['role'] }}</a>
+            {% endfor %}
+        </div>
+        <div class="row col-sm-10 col-sm-offset-1 col-lg-6 col-lg-offset-3" style="padding-top: 4vh; padding-bottom: 4vh;">
+            <br/>
+            {% for role in committee %}
+            <div class="committee-member" id="{{ loop.index }}">
+                {% if is_admin == true %}
+                <a class="admin-button" href="{{ url_for('committee_editor', role=role['role']) }}#top">Edit details</a>
+                {% endif %}
+                <h1>{{ role['role']|safe }} - {{ role['name'] }}</h1>
+                <div class="committee-member-text">
+                    <blockquote><p><i>{{ role['text']|safe }}</i></p></blockquote>
+                    <br/>
+                    <img src="{{ url_for('static', filename=role['photo']) }}" style="width:100%;" />
+                </div>
+
+            </div>
+            <br/>
+            <a href="#top" class="scroll-button"><< Back to top</a>
+            <br/><br/><br/><br/>
+            {% endfor %}
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}

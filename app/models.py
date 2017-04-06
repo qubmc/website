@@ -1,8 +1,9 @@
 import app
+import datetime
+from sqlalchemy import DateTime
 
 
 class User(app.db.Model):
-
     """ A user who has an account on the website. """
 
     id = app.db.Column(app.db.Integer, primary_key=True)
@@ -54,15 +55,49 @@ class Banners(app.db.Model):
     id = app.db.Column(app.db.Integer(), primary_key=True)
     image_url = app.db.Column(app.db.Text())
 
+    def __init__(self, image_url):
+        self.image_url = image_url
 
-class BlogPost(app.db.Model):
+
+class UserBlogPosts(app.db.Model):
     id = app.db.Column(app.db.Integer(), primary_key=True)
     title = app.db.Column(app.db.String(140), nullable=False)
-    content = app.db.Column(app.db.Text(), nullable=False)
+    text = app.db.Column(app.db.NVARCHAR(), nullable=False)
     image_url = app.db.Column(app.db.Text())
-    key = app.db.Column(app.db.String(60), nullable=False, unique=True)
+    filter = app.db.Column(app.db.String(60), default='GENERAL', nullable=False)
+    user = app.db.Column(app.db.String(140), nullable=False)
+    datetime = app.db.Column(DateTime, default=datetime.datetime.utcnow)
+    user_id = app.db.Column(app.db.String(140), nullable=False)
+    viewable = app.db.Column(app.db.Boolean(),
+                             nullable=False,
+                             default=False)
+
+    def __init__(self, title, text, image_url, filter, user, user_id):
+        self.title = title
+        self.text = text
+        self.image_url = image_url
+        self.filter = filter
+        self.user = user
+        self.user_id = user_id
+        from app.utils.profiles.login import check_admin
+        if check_admin():
+            self.viewable = True
 
 
 class Quotes(app.db.Model):
     id = app.db.Column(app.db.Integer(), primary_key=True)
     quote = app.db.Column(app.db.String(140), nullable=False)
+
+
+class Committee(app.db.Model):
+    id = app.db.Column(app.db.Integer(), primary_key=True)
+    role = app.db.Column(app.db.String(140), nullable=False)
+    name = app.db.Column(app.db.String(140), nullable=False)
+    text = app.db.Column(app.db.Text(), nullable=False)
+    photo = app.db.Column(app.db.Text(), nullable=False)
+
+    def getRole(self):
+        return self.role
+
+    def getName(self):
+        return self.name

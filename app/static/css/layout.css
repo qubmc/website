@@ -147,6 +147,10 @@
     font-family: 'Josefin Sans', sans-serif;
 }
 
+div.filler {
+    font-size: 1.5em;
+}
+
 .profile-pic {
     padding-top: 0px;
     padding-bottom: 0px;
@@ -199,5 +203,38 @@
 }
 
 .title {
+    text-align: center;
+}
+
+.blog-row {
+    display: flex;
+    flex-wrap: wrap;
+    display: -webkit-flex;
+    align-content: center;
+    flex-basis: auto; /* default value */
+    flex-grow: 1;
+}
+
+.blog-post {
+    box-sizing: border-box;
+    padding: 20px;
+    flex: 1;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+@include max-width(992px) {
+    .blog-post {
+        flex-basis: 58%;
+    }
+}
+
+@include max-width(640px) {
+    .blog-post {
+            flex-basis: 68%;
+        }
+}
+
+.blog-tag {
     text-align: center;
 }

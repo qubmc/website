@@ -1,4 +1,5 @@
 import logging
+import os
 
 # DEBUG can only be set to True in a
 # development environment for security reasons
@@ -30,6 +31,11 @@ USER_APP_NAME = 'QUBMC'  # Used by email templates
 
 # Number of times a password is hashed
 BCRYPT_LOG_ROUNDS = 12
+
+# Image Uploads
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static/img/uploads')
+MAX_CONTENT_PATH = (16 * 1024 * 1024)
+ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
 
 LOG_LEVEL = logging.DEBUG
 LOG_FILENAME = 'activity.log'

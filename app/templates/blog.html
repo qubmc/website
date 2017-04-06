@@ -1,24 +1,56 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    {% if page_content is not none %}
-    <div class="parallax-img" style="background-image: url('{{ page_content['image_url'] }}');">
-    {% endif %}
-    <div class="spacing" style="margin: 0; min-height: 50vh;"></div>
     <div class="container-fluid filler content-fade" style="background-color: white;">
+    {% if all_posts is not none %}
         {% if is_admin == true %}
-            <a class="admin-button" href="{{ url_for('content_editor', page='blog') }}#top">Edit content</a>
+            {% set count = [1] %}
+            {% for post in all_posts %}
+                {% if not post['viewable'] %}
+                    {% if count.append(count.pop() + 1) %}{% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if count.append(count.pop() - 1) %}{% endif %}
+            <p style="text-align: right">{{ count }} posts are awaiting approval.</p>
         {% endif %}
-        <div class="row col-sm-10 col-sm-offset-1 col-lg-6 col-lg-offset-3" style="padding-top: 4vh; padding-bottom: 4vh;">
+        <br/>
+        <div style="justify-content: space-between; text-align: right;">
+            <a href="{{ url_for('new_blog_post') }}#top" type="button" class="btn btn-primary btn-block">New Post</a>
+        </div>
+        <div style="justify-content: space-between; text-align: center;">
+            <a href="{{ url_for('blog', filter='ALL') }}#top" type="button" class="btn btn-secondary btn-lg">All</a>
+            <a href="{{ url_for('blog', filter='GENERAL') }}#top" type="button" class="btn btn-secondary btn-lg">General</a>
+            <a href="{{ url_for('blog', filter='TRIP REPORT') }}#top" type="button" class="btn btn-secondary btn-lg">Trip Report</a>
+            <a href="{{ url_for('blog', filter='EVENT') }}#top" type="button" class="btn btn-secondary btn-lg">Event</a>
+            <a href="{{ url_for('blog', filter='GUIDE') }}#top" type="button" class="btn btn-secondary btn-lg">Guide</a>
+        </div>
+        {% block blogpost %}
+        <div class="row blog-row">
+            {% for post in all_posts|sort(attribute='datetime')|reverse %}
+            {% if post['viewable'] %}
+            {% if (filter == 'ALL') or (post['filter'] == filter) %}
+            <div class="well blog-post" id="{{ loop.index }}">
+                {% if post['filter'] == 'GENERAL' %}
+                <div class="alert alert-info blog-tag"><strong>General</strong></div>
+                {% elif post['filter'] == 'TRIP REPORT' %}
+                <div class="alert alert-success blog-tag"><strong>Trip Report</strong></div>
+                {% elif post['filter'] == 'GUIDE' %}
+                <div class="alert alert-warning blog-tag"><strong>Guide</strong></div>
+                {% elif post['filter'] == 'EVENT' %}
+                <div class="alert alert-danger blog-tag"><strong>Event</strong></div>
+                {% endif %}
+                <p><h1 class="blog-title"><b>{{ post['title'] }}</b></h1>
+                <p> by {{ post['user'] }} <i style="font-size: 1em"> on {{ post['datetime'] }}</i></p>
 
-        {% if page_content is not none %}
-            <h1 class="title">{{ page_content['title'] }}</h1><br/>
-            <!--{% if page_content['image_url'] %}-->
-                <!--<img class="content-img" src="{{ page_content['image_url'] }}"/>-->
-            <!--{% endif %}-->
-            <p>{{ page_content['content']|safe }}</p>
-        {% endif %}
+                <br/><br/>
+                <a href="{{ url_for('blog_post', id=post['id']) }}#top">Read more >></a>
+            </div>
+            <br/>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endblock %}
+    {% endif %}
     </div>
-        </div>
-        </div>
 {% endblock %}

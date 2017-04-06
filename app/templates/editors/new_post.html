@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container filler">
+        <div class="row filler">
+            <div class="col-sm-12">
+                <h1 style="text-align:center">New Blog Post</h1>
+                <div class="well">
+                    <form action="{{ url_for('post_data_handler', post=post) }}" method="post" enctype=multipart/form-data>
+                        <h3>Title:</h3>
+                        <input type="text" name="title" maxlength="100" style="width:100%"/><br/>
+                        <h3>Tag:</h3>
+                        <select name="filter" style="min-width: 40%">
+                            <option value="GENERAL">General</option>
+                            <option value="TRIP REPORT">Trip Report</option>
+                            <option value="EVENT">Event</option>
+                            <option value="GUIDE">Guide</option>
+                        </select>
+                        <h3>Content:</h3>
+                        <textarea name="text" rows="20" style="width:100%"></textarea><br/>
+                        <h3>Upload image:</h3>
+                        <input class="btn" type="file" name="file"/>
+                        <br/>
+                        <input class="btn btn-block" type="submit" value="Post"/>
+                    </form>
+            </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

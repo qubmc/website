@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 style="text-align:center">Upload an additional banner image: </h1>
+                <br>
+                <form action="{{ url_for('banner_data_handler', banner=banner) }}" method="post" enctype=multipart/form-data>
+                    <input type=file name=file>
+                    <input type="submit" value="save"/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

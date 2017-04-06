@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 style="text-align:center">Details Editor for: {{ role['role'] }}</h1>
+                <br>
+                <form action="{{ url_for('committee_data_handler', role=role['role']) }}" method="post" enctype=multipart/form-data>
+                    <h3>Name:</h3>
+                    <input type="text" value="{{ role['name'] }}" name="name" maxlength="100" style="width:100%"/><br/>
+                    <h3>Text:</h3>
+                    <textarea name="text" rows="20" style="width:100%">{{ role['text'] }}</textarea><br/>
+                    <h3>Upload image:</h3>
+                    <input type=file name=file>
+                    <input type="submit" value="save"/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

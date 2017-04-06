@@ -32,3 +32,17 @@ def check_admin():
     except KeyError:
         pass
     return False
+
+
+def get_user_name():
+    if session.get('name') is not None:
+        return str(session['name'])
+    else:
+        return None
+
+
+def get_user_id():
+    if session.get('id') is not None:
+        return str(session['id'])
+    else:
+        return None

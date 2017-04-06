@@ -5,13 +5,13 @@
             <div class="col-sm-12">
                 <h1 style="text-align:center">Content Editor for: {{ page }}</h1>
                 <br>
-                <form action="{{ url_for('content_data_handler', page=page) }}" method="post">
+                <form action="{{ url_for('content_data_handler', page=page) }}" method="post" enctype=multipart/form-data>
                     <h3>Title:</h3>
                     <input type="text" value="{{ page_content['title'] }}" name="content_title" maxlength="100" style="width:100%"/><br/>
                     <h3>Content:</h3>
                     <textarea name="content_text" rows="20" style="width:100%">{{ page_content['content'] }}</textarea><br/>
-                    <h3>Image URL:</h3>
-                    <input type="text" value="{{ page_content['image_url'] }}" name="content_img_url" style="width:100%"/><br/><br/>
+                    <h3>Upload image:</h3>
+                    <input type=file name=file>
                     <input type="submit" value="save"/>
                 </form>
             </div>
