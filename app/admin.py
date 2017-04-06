@@ -1,9 +1,10 @@
 from flask_admin import Admin, BaseView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.menu import MenuLink
+from flask import abort
 from app import app, db
-from app.models import User, Content, Banners, UserBlogPosts, Quotes
 from app.models import Committee
+from app.models import User, Content, Banners, UserBlogPosts, Quotes
 
 
 class MyView(BaseView):
@@ -11,11 +12,11 @@ class MyView(BaseView):
     def index(self):
         return self.render('admin.html')
 
-    # def is_accessible(self):
-    #     from app.utils.profiles.login import check_admin
-    #     if check_admin() is True:
-    #         return True
-    #     abort(403)
+    def is_accessible(self):
+        from app.utils.profiles.login import check_admin
+        if check_admin() is True:
+            return True
+        abort(403)
 
 
 admin = Admin(app)
