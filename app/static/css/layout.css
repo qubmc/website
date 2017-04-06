@@ -175,6 +175,12 @@ div.filler {
     max-width: 600px;
 }
 
+@media (max-width: 480px) {
+    .parallax-img {
+        background-width: 100vw;
+        background-position: center;
+    }
+}
 .parallax-img {
     background-attachment: fixed !important;
     background-position: center !important;
