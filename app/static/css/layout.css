@@ -177,16 +177,27 @@ div.filler {
 
 @media (max-width: 480px) {
     .parallax-img {
-        background-width: 100vw;
+        background-size: auto 300px;
         background-position: center;
+
+    }
+    .spacing {
+        margin: 0; min-height: 100px;
     }
 }
-.parallax-img {
-    background-attachment: fixed !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
+@media (min-width: 481px) {
+    .parallax-img {
+        background-attachment: fixed !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-size: cover !important;
+    }
+    .spacing {
+        margin: 0; min-height: 50vh;
+    }
 }
+
+
 
 .admin-button {
     float: right;
