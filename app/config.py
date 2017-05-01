@@ -12,7 +12,10 @@ SECRET_KEY = 'keep the bad guys out'
 ADMIN_CREDENTIALS = ('admin', 'pa$$word')
 
 # Database choice
-SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
+
+# Use absolute path in deployment
+#SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
+SQLALCHEMY_DATABASE_URI = 'sqlite:///var/www/app/app/app.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 CSRF_ENABLED = True
 
