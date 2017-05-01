@@ -104,9 +104,8 @@
             <div id="content" style="min-height: 100vh;">
             {% block content %}
                 {% if page_content is not none %}
-                <div class="parallax-img" style="background-image: url('{{ url_for('static', filename=page_content['image_url']) }}');">
+                <img class="parallax-img" src="{{ url_for('static', filename=page_content['image_url']) }}"/>
                     {% if page_content['image_url'] != '' %}
-                    <div class="spacing" style="margin: 0; min-height: 50vh;"></div>
                     {% endif %}
 
                     <div class="container-fluid filler content-fade" style="background-color: white;">
@@ -121,7 +120,6 @@
                             {% endif %}
                         </div>
                     </div>
-                </div>
                 {% endif %}
             {% endblock %}
             </div>

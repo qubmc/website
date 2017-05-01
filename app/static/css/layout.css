@@ -175,26 +175,14 @@ div.filler {
     max-width: 600px;
 }
 
-@media (max-width: 480px) {
-    .parallax-img {
-        background-size: auto 300px;
-        background-position: center;
+.parallax-img {
+    width: 100%;
+    height: auto;
+    background-position: center;
 
-    }
-    .spacing {
-        margin: 0; min-height: 100px;
-    }
 }
-@media (min-width: 481px) {
-    .parallax-img {
-        background-attachment: fixed !important;
-        background-position: center !important;
-        background-repeat: no-repeat !important;
-        background-size: cover !important;
-    }
-    .spacing {
-        margin: 0; min-height: 50vh;
-    }
+.spacing {
+    margin: 0; min-height: 300px;
 }
 
 

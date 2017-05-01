@@ -173,14 +173,14 @@ def scotland_trip():
 def trad_trip():
     from app.models import Content
     content = Content.query.filter_by(key='trad_trip').first()
-    return render_template('blog.html', page_content=content)
+    return render_template('default.html', page_content=content)
 
 
 @app.route('/gola_trip')
 def gola_trip():
     from app.models import Content
     content = Content.query.filter_by(key='gola_trip').first()
-    return render_template('blog.html', page_content=content)
+    return render_template('default.html', page_content=content)
 
 
 @app.route('/committee')

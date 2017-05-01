@@ -2,10 +2,7 @@
 
 {% block content %}
     {% if page_content is not none %}
-    <div class="parallax-img" style="background-image: url('{{ url_for('static', filename=page_content['image_url']) }}');">
-        {% if page_content['image_url'] != '' %}
-        <div class="spacing"></div>
-        {% endif %}
+    <img class="parallax-img" src="{{ url_for('static', filename=page_content['image_url']) }}"/>
 
         <div class="container-fluid filler" style="background-color: white;">
             {% if is_admin == true %}
@@ -19,6 +16,5 @@
                 {% endif %}
             </div>
         </div>
-    </div>
 {% endif %}
 {% endblock %}
